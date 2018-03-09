@@ -1,0 +1,132 @@
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>订单详情页面</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <script type="text/javascript" src="/Cart/Public/js/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/Cart/Public/css/bootstrap.min.css" />
+    <script type="text/javascript" src="/Cart/Public/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/Cart/Public/css/OrderHandle.css" />
+    <script type="text/javascript" src="/Cart/Public/js/postUpload.js"></script>
+    <style>
+        body{background-color: #E5E5E5}
+       .container{padding: 0}
+        .lead{margin-bottom: 0;}
+        .media-body p{margin: 3px}
+        .media{background-color: white}
+        .list-group-item{padding-left: 0}
+        .col-xs-4{padding-right: 10px;padding-left: 0px}
+        .col-xs-6{padding:0 15px}
+        small span{opacity: 0.4}
+        .list-group{margin-bottom: 8px}
+    </style>
+    <script>
+        $(function () {
+            $('.getBack').click(function () {
+                window.history.go(-1);
+            });
+        })
+    </script>
+</head>
+<body>
+<div class="container">
+    <div style="padding: 6px 0;background-color: white">
+        <strong class="text-left text-muted" style="margin: 0;font-size: 18px">
+            <span class="glyphicon glyphicon-chevron-left getBack" ></span>
+            <span>商品详情</span>
+        </strong>
+    </div>
+    <div class="lead" style="height: 70px;background-color: #E87C46">
+        <strong style="color: white;height: 70px;line-height: 70px;display: inline-block;margin-left: 30px"><?php echo ($state); ?></strong>
+    </div>
+    <div class="media" style="margin: 5px 0 0 0;">
+        <div class="media-left">
+            <span class="glyphicon glyphicon-map-marker text-muted" style="font-size: 24px;height: 35px;line-height: 35px"></span>
+        </div>
+        <div class="media-body"  style="margin:0;">
+            <p class="media-heading text-muted">收货人：李华</p>
+            <p class="text-muted">联系方式：14565236875</p>
+        </div>
+    </div>
+    <ul class="list-group" style="margin-top: 6px">
+        <li class="list-group-item">
+            <!--/Cart/index.php/Home/Index/detial/id/<?php echo ($goods["id"]); ?>-->
+            <a href="/Cart/index.php/Home/Index/detial/id/1">
+                <div class="media">
+                    <div class="media-left col-xs-3">
+                        <img src="/Cart/Public/img/19816.jpg" class="media-object" width="90%" height="100%">
+                    </div>
+                    <div class="media-body text-muted" style="padding-left: 15px;padding-top: 10px">
+                        <label class="col-xs-12 text-muted">
+                            商品名称：可乐
+                        </label>
+                        <span class="col-xs-7 text-left" style="opacity: 0.7">
+                        商品件数：2
+                    </span>
+                        <span class="col-xs-5 text-right" style="color: black">
+                        金额：2*3
+                    </span>
+                    </div>
+                </div>
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="/Cart/index.php/Home/Index/detial/id/1">
+                <div class="media">
+                    <div class="media-left col-xs-3">
+                        <img src="/Cart/Public/img/19816.jpg" class="media-object" width="90%" height="100%">
+                    </div>
+                    <div class="media-body text-muted" style="padding-left: 15px;padding-top: 10px">
+                        <label class="col-xs-12 text-muted">
+                            商品名称：可乐
+                        </label>
+                        <span class="col-xs-7 text-left" style="opacity: 0.7">
+                        商品件数：2
+                    </span>
+                        <span class="col-xs-5 text-right" style="color: black">
+                        金额：2*3
+                    </span>
+                    </div>
+                </div>
+            </a>
+        </li>
+    </ul>
+    <div style="background-color: white;height: 70px;padding-top: 6px;">
+        <small>
+            <span class="col-xs-6 text-left">商品总价</span>
+            <span class="col-xs-6 text-right">￥123.0</span>
+        </small>
+        <small>
+            <span class="col-xs-6 text-left">运费</span>
+            <span class="col-xs-6 text-right">￥3.0</span>
+        </small>
+        <p>
+            <span class="col-xs-6 text-left">预计总金额</span>
+            <span class="col-xs-6 text-right">￥125.0</span>
+        </p>
+    </div>
+    <div style="height: 50px;margin-top: 2px;background-color: white;padding-top: 12px;margin-bottom: 8px" class="col-xs-12" >
+        <span class="col-xs-6 text-left">待支付金额</span>
+        <strong class="col-xs-6 text-right" style="color: #E87C46">￥0.00</strong>
+    </div>
+    <div class="col-xs-12" style="height: 48px;margin-top: 20px;background-color: white;padding-top: 7px;">
+        <div class="col-xs-4">
+            <a href="<?php echo U('Index/addAddress2');?>" class="btn btn-default btn-block" style="border-radius: 0">
+                在线支付
+            </a>
+        </div>
+        <div class="col-xs-4"><!-- 根据url的way和未支付金额  来 通过.disable控制是否显示   -->
+            <a href="<?php echo U('Index/refund');?>" class="btn btn-default btn-block" style="border-radius: 0;">
+                申请退货
+            </a>
+        </div>
+        <div class="col-xs-4" style="padding-right: 0">
+            <a href="<?php echo U('Index/addCommentInfo');?>" class="btn btn-default btn-block" style="border-radius: 0;">
+                发布评价
+            </a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

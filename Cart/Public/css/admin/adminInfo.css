@@ -1,0 +1,36 @@
+#con{
+    margin-top: 20px;
+    width: auto;
+}
+.content{
+    width: auto;
+    margin-top: 5px;
+    line-height: 30px;
+    height: 30px;
+}
+#con .content .words{
+    float: left;
+}
+#con .line{
+    width: 3px;
+    height: 14px;
+    background: #A76310; 
+    margin-top: 8px;
+    float: left;
+}
+#con label{
+    font-weight: bold;
+    float: left;
+    color: #888;
+    margin-left: 3px;
+}
+.content3{
+    margin-top: 10px;
+    height: 200px;
+    line-height: 30px;
+}
+#con .content3 .words{
+    float: left;
+    margin-left: 8px;
+}
+

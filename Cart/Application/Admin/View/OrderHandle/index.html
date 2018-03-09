@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>订单页面</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <load href="__PUBLIC__/css/bootstrap.min.css"/>
+    <load href="__PUBLIC__/js/jquery.min.js"/>
+    <load href="__PUBLIC__/js/bootstrap.min.js"/>
+    <load href="__PUBLIC__/css/OrderHandle.css"/>
+</head>
+<body>
+<!--<div class="jumbotron">
+    <h3>订单中心</h3>
+</div>-->
+<style>
+
+</style>
+<div class="container">
+    <div id="head" class="col-xs-12 text-center text-muted">
+        <h3>订单中心</h3>
+    </div>
+    <div style="height: 25px;">
+        <p style="margin-left: 10px"><i class="glyphicon glyphicon-question-sign" style="margin-right: 10px"></i>未处理订单</p>
+    </div>
+    <div class="panel-group" id="accordion" style="margin-bottom: 50px;margin-top: 35px">
+        <volist name="address" id="arr1" key="k">
+            <div class="panel panel-default one">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <a href="#collapse{$k}" data-toggle="collapse" data-parent="#accordion">
+                            <p style="font-weight: 600">{$arr1}<span class="text-danger" style="display: inline-block;margin-left: 20px">X{$arrNum[$k-1]}</span></p>
+                            <h6 class="text-right">
+                                <a href="{:U('OrderHandle/shoppings',array('address'=>$arr1))}"><i>查看所有商品</i></a>
+                            </h6>
+                        </a>
+                    </div>
+                </div>
+                <div class="panel-collapse collapse fade" id="collapse{$k}">
+                    <ul class="list-group small_list_group panel-body">
+                        <volist name="res[$k-1]" id="arr2">
+                            <if condition="intval($arr2['price']) gt 0">
+                                <li class="list-group-item">
+                                    {$arr1}<br/>
+                                    <span>订单号</span>{$arr2.id}<br/>
+                                    <span>下单时间</span>{$arr2.ordertime}<br>
+                                    {$arr2.customname}--{$arr2.phonenumber}
+                                    <br>
+                                    <span class="col-xs-8 text-left">本单收入：{$arr2.price}</span>
+
+                                <span class="text-right">
+                                    <!--/LSHZ/index.php/Admin/Classfiy/detail.html?id={$arr2.id}-->
+                                    <a href="{:U('OrderHandle/detail',array('id'=>$arr2['id']))}" class="text-warning">追踪详情</a>
+                                </span>
+                                </li>
+                            </if>
+                        </volist>
+                    </ul>
+                </div>
+
+            </div>
+        </volist>
+    </div>
+
+    <!--<include file='Public/toolbar'/>-->
+    <footer>
+        <nav class="navbar navbar-default navbar-fixed-bottom">
+            <!--<div class="container" align="center">-->
+            <style>
+                .nav-tabs
+                {
+                    text-align: center;
+                    height: 60px;
+
+                }
+                .nav-tabs li a{
+                    line-height: 60px;
+                }
+            </style>
+            <ul class="nav nav-tabs nav-tabs-justified" style="background-color:#1E90FF;">
+                <div class="row" align="center" id="bottom_list">
+                    <div class="col-md-3 col-sm-3 col-xs-3" align="center">
+                        <li>
+                            <a href="{:U('Index/index')}"style="color: white">首页</a>
+                        </li>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-3" align="center"><li style="background-color: #104E8B"><a href="{:U('OrderHandle/index')}" style="color: white">订单中心</a></li></div>
+                    <div class="col-md-3 col-sm-3 col-xs-3" align="center"><li><a href="{:U('Classfiy/index')}" style="color: white">商品上架</a></li></div>
+                    <div class="col-md-3 col-sm-3 col-xs-3" align="center"><li><a href="{:U('Center/index')}" style="color: white">我的中心</a></li></div>
+                </div>
+            </ul>
+            <!--</div>-->
+        </nav>
+    </footer>
+</div>
+
+
+</body>
+</html>

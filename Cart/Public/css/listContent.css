@@ -1,0 +1,20 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.container{
+    padding: 0;
+}
+#myScrollspy{
+    padding: 0;
+}
+ul.nav-pills{
+    width:88px;
+    margin-left: 0;
+}
+ul.nav-pills.affix{
+    top: 30px;
+}
+ul.nav-tabs.affix-bottom{
+    bottom: 30px;
+}

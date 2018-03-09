@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>商品列表</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/bootstrap.min.css">
+    <link href="__PUBLIC__/css/index/index.css" rel="stylesheet">
+    <load href="__PUBLIC__/js/jquery.js" />
+    <load href="__PUBLIC__/js/bootstrap.js" />
+    <load href="__PUBLIC__/js/index/index.js" charset="utf-8"/>
+</head>
+<body data-spy="scroll" data-target="#myScrollspy">
+<div class="container">
+    <div class="jumbotron">
+        <p class="text-danger center-block" style="width: 100px">零食盒子</p>
+    </div>
+    <div class="col-xs-3" id="myScrollspy">
+        <ul class="nav nav-pills nav-stacked" data-spy="affix" style="position: fixed"  data-offset-top="125">
+            <li class="active text-center"><a href="#setion-1">最新</a> </li>
+            <volist name="typeinfo" id="list">
+                <li class="text-center"><a href="#setion-{$i+1}">{$list.typename}</a> </li>
+            </volist>
+        </ul>
+    </div>
+    <div class="col-xs-9 no_padding" id="mygoods">
+        <p class="title" id="setion-1" >最新上架</p>
+        <present name="new">
+            <volist name="new" id="goods">
+                <span class="goodsid hide">{$goods.id}</span>
+                <a class="media" style="display: block" href="__CONTROLLER__/detial/id/{$goods.id}">
+                    <div class="pull-left">
+                        <img src="__PUBLIC__/img/timg.jpg" class="img"/>
+                    </div>
+                    <div class="media-body">
+                        <div class="media-heading">
+                            <h6>{$goods.name}</h6>
+                        </div>
+                        <p class="text-muted sale_mess">
+                            销量:{$goods.salenum}单 &nbsp;
+                            评分:{$goods.score}分
+                        </p>
+                        <div class="media-foot">
+                              <span class="text-danger sale_price" >
+                                 ￥<span class="price_content">{$goods.price}</span>
+                             </span>
+                            <div class="goods_num_icon">
+                                <label  class="bg-gray hide" ><i class="glyphicon glyphicon-minus"></i></label>
+                                <span  class="numshow hide">0</span>
+                                <label  class="bg-red" ><i class="glyphicon glyphicon-plus plus-sm"></i></label>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </volist>
+        <else />
+            <div style="height: 30px" class="text-danger">
+                尚未添加该功能
+            </div>
+        </present>
+
+        <volist name="goodsinfo" id="vo" >
+            <p class="title" id="setion-{$vo.num}">{$vo.name}</p>
+            <volist name="vo['child']" id="goods">
+                <span class="goodsid hide">{$goods.id}</span>
+                    <a class="media" style="display: block" href="__CONTROLLER__/detial/id/{$goods.id}">
+                        <div class="pull-left">
+                            <img src="__PUBLIC__/img/timg.jpg" class="img"/>
+                        </div>
+                        <div class="media-body">
+                            <div class="media-heading">
+                                <h6>{$goods.name}</h6>
+                            </div>
+                            <p class="text-muted sale_mess">
+                                销量:{$goods.salenum}单 &nbsp;
+                                评分:{$goods.score}分
+                            </p>
+                            <div class="media-foot">
+                              <span class="text-danger sale_price" >
+                                 ￥<span class="price_content">{$goods.price}</span>
+                             </span>
+                                <div class="goods_num_icon">
+                                    <label  class="bg-gray hide" ><i class="glyphicon glyphicon-minus"></i></label>
+                                    <span  class="numshow hide">0</span>
+                                    <label  class="bg-red" ><i class="glyphicon glyphicon-plus plus-sm"></i></label>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+             </volist>
+            </volist>
+    </div>
+     <div class="clear-fix"></div>
+    <div id="showmycart" class="hide">
+       <p class="title">1号口袋  <a class="glyphicon glyphicon-trash">清空购物车</a></p>
+        <ul id="goodslist">
+
+        </ul>
+    </div>
+    <footer id="footer" >
+            <div class="col-xs-8 " id="showmy" >
+                 <div class="cart" >
+                     <span class="glyphicon glyphicon-shopping-cart" style="font-size: 28px;color:black;"></span>
+                 </div>
+                <div  id="setprice">￥<span class="money_sum">3元送</span></div>
+            </div>
+            <a class="col-xs-4 btn btn-warning btn-lg ensure" href="{:U('Index/postorder')}"  >确认订单</a>
+    </footer>
+</div>
+</body>
+</html>
+

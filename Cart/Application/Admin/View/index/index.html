@@ -1,0 +1,315 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>管理员主页</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <load href="__PUBLIC__/css/bootstrap.min.css"/>
+    <load href="__PUBLIC__/js/jquery.min.js"/>
+    <load href="__PUBLIC__/js/bootstrap.min.js"/>
+    <load href="__PUBLIC__/css/OrderHandle.css"/>
+    <load href="__PUBLIC__/css/index/index.css"/>
+    <style>
+        .deleted_goods img,.deleted_goods .media-foot>span,.deleted_goods p,.deleted_goods h6,.deleted_goods .price_content{
+            opacity: 0.5;
+        }
+        .deleted_goods span.onGoods,.deleted_goods span.deleteGoods{
+            opacity: 1;
+        }
+        .panel-body{padding-top: 0}
+        .panel-heading{padding: 0}
+        .no_block{display: inline-block;float: left}
+        .no_block a{display: inline-block;}
+        .col-xs-3{padding: 0}
+        .jumbotron{background-color: white}
+    </style>
+</head>
+<script>
+    function previewFile() {
+        var preview = document.querySelector('img');
+        var file  = document.querySelector('input[type=file]').files[0];
+        var reader = new FileReader();
+        reader.onloadend = function () {
+            preview.src = reader.result;
+        }
+        if (file) {
+            reader.readAsDataURL(file);
+        } else {
+            preview.src = "";
+        }
+    }
+    function reset() {
+        $("input[type='text']").val("");
+        $("#file1").val("");
+        $("textarea").text("");
+        $("select").get(0).selectedIndex=0;
+    }
+    function check(){
+        var inputs=$('input');
+
+        for(var i=0;i<inputs.length;i++){
+            if(!inputs[i].value){
+                alert("请把信息填写完整！");
+                $(inputs[i]).focus();
+                return false;
+            }
+        }
+    }
+    $(function () {
+        $('.deleteGoods').each(function (index,value){
+            $(value).click(function (event) {
+                event.preventDefault();
+                var goodsid=$('.goodsid').eq(index).text();
+                $.ajax({
+                     type:'post',
+                     url:"{:U('Index/discard')}",
+                     data:{
+                         'id':goodsid
+                     },
+                     success:function(data){
+                           $('.the_list').eq(index).addClass('deleted_goods');
+                           $('.deleteGoods').eq(index).text('上架');
+                     },
+                });
+            });
+        });
+        $('.onGoods').each(function (index,value) {
+            $(value).click(function (event) {
+                //onGoods
+            })
+        });
+        $('.navbar-nav li').each(function (index,value) {
+            $(value).click(function (event) {
+               $('.navbar-nav').slideUp();
+               $(this).addClass('active').siblings('.navbar-nav li').removeClass('active');
+               /*setTimeout(function () {
+                   $('.navbar-nav').hide();$('.navbar-nav').slideDown();
+               },200);*/
+            });
+        });
+
+        $('.navbar-toggle').click(function () {
+            /*$('.navbar-nav').show();*/
+            $('.navbar-nav').slideDown();
+        });
+
+        /*显示模态框*/
+        $('.change_price').each(function (index,value) {
+            $(value).click(function (event) {
+                event.preventDefault();
+                $('#goods_price').val(parseInt($(this).siblings('.sale_price').children('.price_content').text()));
+                $('#myModalLabel').text($(this).parents('.media-body').children('.media-heading').children('h6').text());
+            });
+        });
+
+        var b=document.getElementById('brower');
+        var f=document.getElementById('file1');
+        b.onclick=function(){
+            f.click();
+        };
+
+        $('#file1').change(function(){
+            $('#txtInput').val($('#file1').val());
+
+            previewFile();
+
+        });
+        //$('#file1').val()
+
+        $('form').submit(check);
+        $("#resetBtn").click(reset);
+    });
+</script>
+<body>
+<body>
+
+<div class="container" style="margin-bottom: 50px">
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form action="{:U('Classfiy/UpdateGoods')}" method="post" class="navbar-form navbar-right" enctype="multipart/form-data ">
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-addon">商品价格：</span>
+                            <span class="input-group-addon">￥</span>
+                            <input type="number" class="form-control" name="price" id="goods_price">
+                            <span class="input-group-addon">元</span>
+                        </div>
+
+                        <br>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-addon">商品介绍：</span>
+                            <textarea style="height: 50px" class="form-control" id="textArea" name="describe" placeholder="暂无任何介绍"></textarea>
+                        </div>
+                        <br>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-addon">商品类型：</span>
+                            <select class="form-control" name="type">
+                                <option>--请选择--</option>
+                                <volist name="goodsinfo" id="vo" >
+                                    <option>{$vo.name}</option>
+                                </volist>
+                            </select>
+                        </div>
+                        <br>
+                        <div class="input-group input-group-sm">
+                            <input type="file" id="file1" onchange="previewFile()" style="display: none">
+                            <span class="input-group-addon">上传图片：</span>
+                            <input type="text" class="form-control" id="txtInput" value="" placeholder="还未选择任何文件">
+                            <span class="input-group-addon"  id="brower" style="cursor: pointer;">浏览</span>
+                        </div>
+                        <div class="jumbotron ">
+                            <img src="" height="100" width="150" alt="Image preview..."/>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                    <button type="button" class="btn btn-primary">
+                        提交更改
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a href="#" class="navbar-brand" style="font-size: 22px">
+                    商品管理
+                </a>
+                <button class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <div class="collapse navbar-collapse" id="navbar-collapse">
+
+                <ul class="nav navbar-nav navbar-right list-inline">
+                    <li class="no_block active col-xs-3"><a href="#"> <span class="glyphicon glyphicon-home"></span> 全部</a></li>
+                    <volist name="goodsinfo" id="vo" >
+                        <li class="no_block col-xs-3 text-center"><a href="#setion-{$vo.num}" style="padding-left: 0;padding-right: 0">{$vo.name}</a></li>
+                    </volist>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div style="height: 50px"></div>
+    <!--<div class="panel panel-default">
+        <div class="panel-heading">
+            <p class="title">最新上架</p>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse in">
+            <ul class="list-group panel-body">
+                <volist name="new" id="goods">
+                    <li class="list-group-item the_list">
+                        <span class="goodsid hide">{$goods.id}</span>
+                        <a class="media" style="display: block" href="{:U('Home/Index/detial',array('id'=>$goods['id']))}">
+                            <div class="pull-left">
+                                <img src="" class="img"/>
+                            </div>
+                            <div class="media-body">
+                                <div class="media-heading">
+                                    <h6>{$goods.name}</h6>
+                                </div>
+                                <p class="text-muted sale_mess">
+                                    销量:{$goods.salenum}单 &nbsp;
+                                    评分:{$goods.score}分
+                                </p>
+
+                                <div class="media-foot">
+                        <span class="text-danger sale_price col-xs-6" >
+                             ￥<span class="price_content">{$goods.price}</span>
+                         </span>
+                                    <span class="col-xs-4 change_price" style="display: none">修改价格</span>
+                                    <span class="col-xs-2 deleteGoods" style="display: none;">下架</span>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                </volist>
+            </ul>
+        </div>
+    </div>-->
+    <volist name="goodsinfo" id="vo" >
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <p class="title" id="setion-{$vo.num}">{$vo.name}</p>
+            </div>
+            <ul class="list-group panel-body">
+                <!--{$vo['child'][0].name}-->
+                <if condition="$vo['child']==null">
+                    <li class="list-group-item" style="padding: 4px">该分类下暂无商品</li>
+                    <else/>
+                    <volist name="vo['child']" id="goods">
+                        <li class="list-group-item the_list">
+                            <span class="goodsid hide">{$goods.id}</span>
+                            <a class="media" style="display: block" href="{:U('Home/Index/detial',array('id'=>$goods['id']))}">
+                                <div class="pull-left">
+                                    <img src="" class="img"/>
+                                </div>
+                                <div class="media-body">
+                                    <div class="media-heading">
+                                        <h6>{$goods.name}</h6>
+                                    </div>
+                                    <p class="text-muted sale_mess">
+                                        销量:{$goods.salenum}单
+                                        评分:{$goods.score}分
+                                    </p>
+                                    <div class="media-foot">
+                                        <span class="text-danger sale_price col-xs-6" >
+                                             ￥<span class="price_content">{$goods.price}</span>
+                                        </span>
+                                        <span class="col-xs-4 change_price" data-toggle="modal" data-target="#myModal">修改价格</span>
+                                        <span class="col-xs-2 deleteGoods">下架</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    </volist>
+                </if>
+            </ul>
+        </div>
+    </volist>
+    <footer>
+        <nav class="navbar navbar-default navbar-fixed-bottom">
+            <!--<div class="container" align="center">-->
+            <style>
+                .nav-tabs
+                {
+                    text-align: center;
+                    height: 60px;
+
+                }
+                .nav-tabs li a{
+                    line-height: 60px;
+                }
+            </style>
+            <ul class="nav nav-tabs nav-tabs-justified" style="background-color:#1E90FF;">
+                <div class="row" align="center" id="bottom_list">
+                    <div class="col-md-3 col-sm-3 col-xs-3" align="center">
+                        <li style="background-color: #104E8B">
+                            <a href="{:U('Index/index')}"style="color: white">首页</a>
+                        </li>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-3" align="center"><li><a href="{:U('OrderHandle/index')}" style="color: white">订单中心</a></li></div>
+                    <div class="col-md-3 col-sm-3 col-xs-3" align="center"><li><a href="{:U('Classfiy/index')}" style="color: white">商品上架</a></li></div>
+                    <div class="col-md-3 col-sm-3 col-xs-3" align="center"><li><a href="{:U('Center/index')}" style="color: white">我的中心</a></li></div>
+                </div>
+            </ul>
+            <!--</div>-->
+        </nav>
+    </footer>
+</body>
+</body>
+</html>

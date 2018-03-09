@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>新增配送地址</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <load href="__PUBLIC__/js/jquery.js"/>
+    <load href="__PUBLIC__/css/bootstrap.min.css"/>
+    <load href="__PUBLIC__/js/bootstrap.min.js"/>
+    <load href="__PUBLIC__/css/OrderHandle.css"/>
+    <load href="__PUBLIC__/css/admin/adminInfo.css"/>
+   <!-- <load href="__PUBLIC__/css/admin/addAddress.css"/>-->
+    <style>
+        .line_bottom{
+            margin-top: 10px;
+            margin-left: auto;
+            margin-right: auto;
+            width:20px;
+            height:2px;
+            background-color: grey;
+        }
+        .input_label{
+            height: 30px;
+            line-height: 30px;
+        }
+        .submit_button{
+            border-radius: 0;
+            margin-top: 30px;
+        }
+        form{
+            margin-top: 80px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="page-header">
+        <h3>新增配送地址</h3>
+    </div>
+    <form>
+        <div class="form-group">
+            <label class="control-label col-xs-3">学校名称：</label>
+            <div class="col-xs-8">
+                <input type="text" class="form-control" placeholder="请输入您的要添加的学校名称">
+            </div>
+        </div>
+        <br>
+        <br><br>
+
+        <div class="form-group">
+            <label class="col-xs-3 input_label">楼号范围：</label>
+            <input type="number" class="col-xs-3 input_label">
+            <div class="col-xs-2">
+                <div class="line_bottom"></div>
+            </div>
+            <input type="number" class="col-xs-3 input_label">
+        </div>
+        <br>
+        <input type="submit" class="btn btn-info submit_button">
+        <button type="reset" class="btn btn-info submit_button" style="margin-left: 25px">重置</button>
+    </form>
+</div>
+<include file="Public/toolbar"/>
+</body>
+</html>

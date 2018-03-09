@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<block name="title"><title>{$title|default="后台管理系统"}</title></block>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/Adminstyle.css">
+  <JS href="__PUBLIC__/js/jquery.js" />
+	<JS href="__PUBLIC__/js/bootstrap.js" />
+	<JS href="__PUBLIC__/js/Admin.js" />
+  <style type="text/css">
+  .form-control{
+    padding-left: 15px;
+  }
+  .corner{
+    border-bottom-right-radius: 20px;border-top-right-radius: 20px;
+  }
+  td.tool a{
+    margin:0 10px;
+  }
+  #stu_edit{
+    position: absolute;
+    z-index: 10;
+    width:300px;
+    height: 380px;
+    left: 300px;
+    top:120px;
+  }
+  input.ajaxscore{
+    border:0;
+    border-bottom: 2px solid #555;
+
+  }
+  span.status1{
+
+  }
+  span.status2{
+    display: none;
+  }
+  input::-webkit-input-placeholder{
+     color: #555;
+  }
+  input:-moz-placeholder{
+ color: #555;
+  }
+  input::-moz-placeholder{
+     color: #555;
+  }
+  input:-ms-input-placeholder{
+    color: #555;
+  }
+
+</style>
+</head>
+<body>
+ <script type="text/javascript">
+   $(function(){
+    /*提示组件*/
+      $('a.tooltip2').tooltip({
+        placement:'bottom',
+        title:"删除",
+      });
+      $('a.tooltip1').tooltip({
+        placement:'bottom',
+        title:"修改",
+      });
+      $('a.tooltip3').tooltip({
+        placement:'bottom',
+        title:"添加",
+      });
+      $('a.tooltip4').tooltip({
+        placement:'bottom',
+        title:"完成",
+      });
+      $('a.tooltip5').tooltip({
+        placement:'bottom',
+        title:"取消",
+      });
+   /*删除组件*/
+      $.each($('a.tooltip2'),function(index,value){
+        $(value).click(function(){
+              if(!confirm("是否确定删除")){
+                 return false;
+              }
+              $.ajax({
+                  type:"POST",
+                  url:'score_del.html',
+                  data:{
+                    sid:$(value).parent().find('i').eq(1).html(),
+                    cid:$(value).parent().find('i').eq(0).html(),
+                  },
+                  success:function(response,status,xhr){
+                   $(value).parent().parent().hide();
+                  },
+                });
+             }); 
+      });
+      $.each($('a.tooltip1'),function(index,value){
+          $(value).click(function(){
+              $.ajax({
+                type:"POST",
+                url:'getscore.html',
+                data:{
+                  sid:$('i').eq(index*2+1).html(),
+                  cid:$('i').eq(index*2).html(),
+                },
+                success:function(response,status,xhr){
+                   var base=$('tr').eq(index+1).find('td');
+                   base.eq(4).css('padding-top',3);
+                   base.eq(4).html("<input type='text' class='ajaxscore' name='achievement' placeholder='"+response[0].achievement+"'></input>");
+                   $('span.status2').eq(index).show();
+                   $('span.status1').eq(index).hide();
+                },
+              });
+           }); 
+       });
+     $.each($('a.tooltip4'),function(index,value){
+         $(value).click(function(){
+              $.ajax({
+                type:"POST",
+                url:'score_edit.html',
+                data:{
+                  sid:$('i').eq(index*2+1).html(),
+                  cid:$('i').eq(index*2).html(),
+                  achievement:$('input[name=achievement]').val(),
+                },
+                success:function(response,status,xhr){
+                   var base=$('tr').eq(index+1).find('td');
+                   if(parseInt(response.reply)){
+                    base.eq(4).html(response.reply);
+                  }else{
+                    base.eq(4).html("修改错误");
+                  }
+                   base.eq(4).css('padding-top',8);
+                   $('span.status2').eq(index).hide();
+                   $('span.status1').eq(index).show();
+                },
+              });
+           }); 
+     });
+     $.each($('a.tooltip5'),function(index,value){
+         $(value).click(function(){
+              $.ajax({
+                type:"POST",
+                url:'getscore.html',
+                data:{
+                  sid:$('i').eq(index*2+1).html(),
+                  cid:$('i').eq(index*2).html(),
+                },
+                success:function(response,status,xhr){
+                   var base=$('tr').eq(index+1).find('td');
+                   base.eq(4).css('padding-top',8);
+                   base.eq(4).html(response[0].achievement);
+                   $('span.status2').eq(index).hide();
+                   $('span.status1').eq(index).show();
+                },
+              });
+           }); 
+     });
+     var addflag=0;
+     $('a.tooltip3').click(function(){
+     
+      if(addflag<1)
+      {
+         addflag++;
+         $('thead').after('<tr id="score_plus"><td><input class="ajaxscore"  type="text" name="sid" placeholder="请在这里输入……"></td>'+
+        '<td>null</td>'+'<td>'
+        '</td>'+
+        '<td>null</td>'+
+       '<td><input  class="ajaxscore" type="text" name="achievement" placeholder="请在这里输入……"></td>'+
+       '<td>null</td>'+
+       '<td> <a href="javascript:void(0)" class="tooltip6" style="margin:0 12px;" tag="{$vo.sid}" data-toggle="tooltip"><span class="glyphicon glyphicon-ok"></span></a>'+
+            '<a href="javascript:void(0)" class="tooltip7"  style="margin:0 12px;" tag="{$vo.sid}" data-toggle="tooltip"><span class="glyphicon glyphicon-remove"></span></a></td>'+
+       '</tr>');
+           $('a.tooltip6').tooltip({
+              placement:'bottom',
+              title:"完成",
+            });
+           $('a.tooltip6').click(function(){
+              $.ajax({
+                type:"POST",
+                url:'score_plus.html',
+                data:{
+                  sid:$('#score_plus').find('input').eq(0).val(),
+                  cid:$('#score_plus').find('input').eq(1).val(),
+                  achievement:$('#score_plus').find('input').eq(2).val(),
+                },
+                success:function(response,status,xhr){
+                 alert(response.reply);
+                },
+              });
+           }); 
+            $('a.tooltip7').tooltip({
+              placement:'bottom',
+              title:"取消",
+            });
+            $('a.tooltip7').click(function(){
+              $('tr').eq(1).remove();
+              addflag=0;
+            })
+      }
+     })
+
+   });
+  </script>
+      <ol class="breadcrumb" style="height: 30px;padding-bottom: 0;margin-bottom: 10px">
+        <li ><a href="admin.html" target="myframe"><span class="glyphicon glyphicon-home"></span> 首页</a></li>
+         <li><a href="stu_info.html" target="myframe">学生管理</a></li>
+         <li class="active">学生成绩</li>
+      </ol>
+    
+
+      <ul class="nav nav-tabs">
+        <li class="active"><a href="#score_show" data-toggle="tab">显示学生成绩</a></li>
+      </ul>
+
+      <div class="tab-content" style="margin-top: 5px;">
+        <div id="score_show" class="tab-pane  active fade in">
+              <form class="form-horizontal" action="stu_score.html" method="POST">
+           <div class="form-group">
+                  <div class="col-md-3">
+                     <div class="input-group">
+                       <input type="text" class="form-control" name="search" placeholder="请输入学号">
+                       <div class="input-group-btn"> <button class="btn btn-primary corner"><span class="glyphicon glyphicon-search"></span>搜索</button></div>
+                   </div>
+                  </div>
+          </div>
+           </form>
+        <empty name="list">
+           <p  style="background: #369;color: #eee;width:100%;text-align: center;">该学生成绩不存在</p>
+        <else />
+         <table class="table table-bordered table-hover table-striped">
+             <thead>
+            <tr>
+               <td>学号</td>
+               <td>姓名</td>
+               <td>学科</td>
+               <td>学分</td>
+               <td>成绩</td>
+               <td>状态</td>
+               <td>操作<a href="javascript:void(0)" class="tooltip3" tag="{$vo.sid}" data-toggle="tooltip">
+                     [<span class="glyphicon glyphicon-plus"></span>]</a></td>
+            </tr>
+             </thead>
+             <volist name="list" id="vo">
+               <tr>
+                 <td>{$vo.sid}</td>
+                 <td>{$vo.sname}</td>
+                 <td >{$vo.cname}</td>
+                 <td>{$vo.credit|number_format=1}</td>
+                 <td>{$vo.achievement|number_format=1}</td>
+                 <td>{$vo.status}</td>
+                 <td class="tool">
+                 <i  style="display: none;">{$vo.cid}</i><i style="display: none;">{$vo.sid}</i>
+                 <span class="status1">
+                   <a href="javascript:void(0)" class="tooltip1" tag="{$vo.sid}" data-toggle="tooltip"><span class="glyphicon glyphicon-pencil"></span></a> 
+                   <a href="javascript:void(0)" class="tooltip2" tag="{$vo.sid}" data-toggle="tooltip"> <span class="glyphicon glyphicon-trash"></span></a>  
+                 </span> 
+                 <span class="status2">
+                       <a href="javascript:void(0)" class="tooltip4" tag="{$vo.sid}" data-toggle="tooltip"><span class="glyphicon glyphicon-ok"></span></a>
+                       <a href="javascript:void(0)" class="tooltip5" tag="{$vo.sid}" data-toggle="tooltip"><span class="glyphicon glyphicon-remove"></span></a>
+                  </span>    
+                 </td>
+               </tr>
+              </volist>
+           </table>
+           {$page}
+        </empty>        
+      </div>
+   </div>
+      
+       
+      
+</body>
+</html>
+

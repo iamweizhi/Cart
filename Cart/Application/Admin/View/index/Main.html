@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+  <block name="title"><title>{$title|default="后台管理系统"}</title></block>
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/Adminstyle.css">
+    <JS href="__PUBLIC__/js/jquery.js" />
+  <JS href="__PUBLIC__/js/bootstrap.js" />
+  <JS href="__PUBLIC__/js/Admin.js" />
+ 
+</head>
+<body>
+       <div class="jumbotron" >
+             <h2 >教学管理系统</h2>
+             <time  class="pull-right">今天是<?php echo date("Y年m月d号",time());?></time>
+             <span class="font">当前登录:{$Think.session.name}</span>
+             <a href="{:U('loginout')}" class="btn btn-primary"> <span class="glyphicon glyphicon-off"></span>注销</a>
+      </div>
+       <div class="row">
+         <div class="col-sm-2">
+              <div id="nav">
+                      <h4 class="text-muted" >为管理员提供的服务</h4>
+                <p data-toggle="collapse"  data-target="#demo">
+                      <span class="glyphicon glyphicon-chevron-right " ></span>学生管理模块
+                    </p>    
+            <ul id="demo" class="collapse  myul">
+                <li><a href="__CONTROLLER__/stu_info.html" target="myframe">学生信息</a></li>
+                <li><a href="__CONTROLLER__/stu_enroll.html" target="myframe">学籍管理</a></li>
+                <li><a href="__CONTROLLER__/stu_score.html" target="myframe">学生成绩</a></li>
+                <li><a href="__CONTROLLER__/stu_selectCourse.html" target="myframe">学生选课</a></li>
+            </ul>
+            <p data-toggle="collapse"  data-target="#demo1">
+                      <span class="glyphicon glyphicon-chevron-right "></span>教师管理模块
+                    </p>    
+            <ul id="demo1" class="collapse  myul">
+                <li><a href="__CONTROLLER__/tea_info.html" target="myframe">老师信息</a></li>
+                <li><a href="__CONTROLLER__/tea_judge.html" target="myframe">老师考评</a></li>
+            </ul>
+            <p data-toggle="collapse"  data-target="#demo2">
+                      <span class="glyphicon glyphicon-chevron-right "></span>课表管理模块
+                    </p>    
+            <ul id="demo2" class="collapse myul">
+                <li><a href="__CONTROLLER__/coursetable.html" target="myframe">课表信息</a></li>
+            </ul>
+            <p data-toggle="collapse"  data-target="#demo3">
+                      <span class="glyphicon glyphicon-chevron-right "></span>留言帖子
+                    </p>    
+            <ul id="demo3" class="collapse  myul">
+                <li><a href="__CONTROLLER__/note.html" target="myframe">帖子管理</a></li>
+                <li><a href="__CONTROLLER__/Message.html" target="myframe">留言管理</a></li>
+                <li><a href="__CONTROLLER__/notice.html" target="myframe">发布公告</a></li>
+            </ul>
+            <p data-toggle="collapse"  data-target="#demo4">
+                      <span class="glyphicon glyphicon-chevron-right "></span>添加管理员
+                    </p>   
+            <ul id="demo4" class="collapse  myul">
+                <li><a href="__CONTROLLER__/note.html" target="myframe">管理员管理</a></li>
+               <!--  <li><a href="__CONTROLLER__/Message.html" target="myframe">留言管理</a></li>
+                <li><a href="__CONTROLLER__/notice.html" target="myframe">发布公告</a></li> -->
+            </ul>
+            </div>
+          </div>
+          <div  class="col-sm-10">
+            <iframe name="myframe" src="__CONTROLLER__/admin.html" width="1300" frameborder="0" scrolling="No" height="700"></iframe>
+          </div>
+       </div>
+       <div class="clearfix"></div>
+       <footer id="footer">
+      <address>开封市东京大道|河南大学</address> 
+      <address>515实验室</address> 
+       </footer>     
+</body>
+</html>
+

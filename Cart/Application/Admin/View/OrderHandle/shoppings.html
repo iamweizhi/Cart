@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>这是同一地址下的所有商品</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <load href="__PUBLIC__/css/bootstrap.min.css"/>
+    <load href="__PUBLIC__/js/jquery.min.js"/>
+    <load href="__PUBLIC__/js/bootstrap.min.js"/>
+    <load href="__PUBLIC__/js/OrderHandle.js"/>
+    <load href="__PUBLIC__/css/OrderHandle.css"/>
+    <style>
+        img{
+            width: 85px;
+            height: 85px;
+        }
+    </style>
+</head>
+<body>
+<!--这是同一地址下的所有商品这是同一地址下的所有商品这是同一地址下的所有商品这是同一地址下的所有商品
+hello word-->
+<div id="head" class="page-header text-center col-xs-12" style="margin-top: 15px;margin-bottom: 10px">
+    <h3>订单详情</h3>
+</div>
+<ul class="list-group" style="margin-top: 68px">
+    <volist name="foodName" id="vo" key="k">
+
+        <li class="list-group-item col-xs-12">
+            <div class="col-xs-1"></div>
+            <div class="col-xs-3 well text-center" style="margin-top: 15px">
+                <img src="http://e.hiphotos.baidu.com/baike/whfpf%3D270%2C150%2C50/sign=70bf7c08aacc7cd9fa7867995f3c1308/3c6d55fbb2fb4316b1321d9f29a4462309f7d322.jpg"
+                class="img-thumbnail"/>
+            </div>
+            <div class="col-xs-1"></div>
+            <div class="col-xs-7 " style="margin-top: 25px">
+                <label class="col-xs-12">
+                    商品名称：{$vo}
+                </label>
+                <span class="col-xs-12">
+                    商品件数：{$foodNum[$k-1]}
+                </span>
+                <span class="col-xs-12">
+                    总金额：{$foodNum[$k-1]}*{$foodPrice[$k-1]}
+                </span>
+            </div>
+        </li>
+    </volist>
+</ul>
+<footer>
+   <nav class="navbar navbar-default navbar-fixed-bottom">
+       <div class="container" align="center" style="padding: 0">
+       <style>
+           .nav-tabs
+           {
+               text-align: center;
+               height: 60px;
+
+           }
+           .nav-tabs li a{
+               line-height: 60px;
+           }
+       </style>
+       <ul class="nav nav-tabs nav-tabs-justified" style="background-color:#1E90FF;">
+           <div class="row" align="center" id="bottom_list">
+               <div class="col-md-3 col-sm-3 col-xs-3" align="center"><li>
+                   <a href="{:U('Index/index')}"style="color: white">首页</a>
+               </li></div>
+               <div class="col-md-3 col-sm-3 col-xs-3" align="center"><li style="background-color: #104E8B"><a href="{:U('OrderHandle/index')}" style="color: white">订单中心</a></li></div>
+               <div class="col-md-3 col-sm-3 col-xs-3" align="center"><li><a href="{:U('Classfiy/index')}" style="color: white">商品上架</a></li></div>
+               <div class="col-md-3 col-sm-3 col-xs-3" align="center"><li><a href="{:U('Center/index')}" style="color: white">我的中心</a></li></div>
+           </div>
+       </ul>
+       </div>
+
+   </nav>
+</footer>
+
+
+</body>
+</html>

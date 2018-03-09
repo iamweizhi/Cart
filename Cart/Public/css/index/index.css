@@ -1,0 +1,99 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family:"Times New Roman", Times, serif;
+}
+h6{
+    font-weight: bold;
+}
+.container{
+    padding: 0;
+}
+#myScrollspy{
+    padding: 0;
+}
+.jumbotron{
+    margin-bottom:0;
+    background-color: #1E90FF;
+}
+p.title{
+    border-left:3px solid orange;
+    font-size:12px;
+    color:#333;
+    letter-spacing:1px;
+    margin:6px 5px;
+    padding-left:7px;
+    background:#E6E6E6;
+}
+.media-body{
+    padding-top: 0;
+    margin-top: 0;
+}
+#mygoods{
+    margin-bottom: 50px;
+}
+h6{
+    padding-top: 0;
+    margin-top: 0;
+}
+span.sale_num{
+   font-size: 1.4px;
+}
+p.sale_mess{
+   font-size: 11px;
+}
+p.sale_price{
+    font-weight: 800;
+}
+p.sale_describe{
+
+}
+
+#myScrollsp{
+    width:25%;float:left;
+}
+#mygoods{
+    width:73%;float: right;
+}
+
+#myScrollspy li a{
+    font-size:1.2rem;
+}
+#myScrollspy li:last-child{
+    border-bottom: 1px dotted #ccc;
+}
+#myScrollspy li{
+    background-color: darkgray;
+    border: 1px dotted #333;
+    border-bottom: none;
+}
+
+#myScrollspy li.active a{
+    background-color: #fff;
+    border-right:none;
+    color: #0f0f0f;
+    border-radius: 0;
+}
+#myScrollspy li.active{
+    border-right:none;
+}
+ul.nav-pills{
+    width:88px;
+    margin-left: 0;
+}
+ul.nav-pills.affix{
+    top: 30px;
+}
+ul.nav-tabs.affix-bottom{
+    bottom: 30px;
+}
+img{
+    width: 60px;
+    height: 50px;
+    display: inline-block;
+    margin-right:0;
+}
+.goods_num_icon{
+    float: right;
+}
+/*小一号字*/

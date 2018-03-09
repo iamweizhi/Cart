@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>修改已有地址</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <load href="__PUBLIC__/css/bootstrap.min.css"/>
+    <load href="__PUBLIC__/js/jquery.min.js"/>
+    <load href="__PUBLIC__/js/JQuery.md5.js"/>
+    <load href="__PUBLIC__/js/bootstrap.min.js"/>
+    <load href="__PUBLIC__/js/OrderHandle.js"/>
+    <load href="__PUBLIC__/css/OrderHandle.css"/>
+    <load href="__PUBLIC__/js/admin/updateAddress.js"/>
+    <style>
+        .no_border{
+            border:0;
+        }
+        .list-group-item{
+            padding: 0;
+        }
+        .no_border_id span{
+
+            margin-right: 20px;
+        }
+        .list-group-item-margin{
+            margin-bottom: 8px;
+        }
+        em{
+            color: #C4C4C4;
+        }
+        .a_active{
+            color: #71A5DB;
+        }
+        .a_noactive{
+            color: #1264DE;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="page-header">
+        <h3>配送地址</h3>
+    </div>
+    <ul class="list-group">
+        <li class="list-group-item list-group-item-margin">
+            <ul class="list-group">
+                <li class="list-group-item no_border"><h4>河南大学金明校区</h4></li>
+                <li class="list-group-item no_border" style="padding: 10px">
+                    <span style="color: grey">可配送楼号：</span><em class="lead">1,2,3</em>
+                </li>
+                <li class="list-group-item text-right no_border no_border_id">
+                    <span class="a_noactive a_btn_1">暂停服务</span><span class="a_active a_btn_2">开启服务</span>
+                </li>
+            </ul>
+        </li>
+        <li class="list-group-item">
+            <ul class="list-group">
+                <li class="list-group-item no_border"><h4>河南大学金明校区</h4></li>
+                <li class="list-group-item no_border" style="padding: 10px">
+                    <span style="color: grey">可配送楼号：</span><em class="lead">1,2,3</em>
+                </li>
+                <li class="list-group-item text-right no_border no_border_id">
+                    <span class="a_noactive a_btn_1">暂停服务</span><span class="a_active a_btn_2">开启服务</span>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <include file="Public/toolbar"/>
+</div>
+
+</body>
+</html>

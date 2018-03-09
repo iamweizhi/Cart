@@ -1,0 +1,100 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <title>输入框和导航组件</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+   <script src="bootstrap/js/jquery.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+
+
+    <script>
+    $(function(){
+    	var b=document.getElementById('brower');
+		var f=document.getElementById('file1');
+		b.onclick=function(){
+			 f.click();
+			 alert();
+		};
+
+		$('#file1').change(function(){
+		    $('#txtInput').val($('#file1').val());
+		});
+
+		$('#subBtn').click(check);
+
+	    $("#resetBtn").click($('input,textarea').reset());
+		
+    });
+    function check(){
+    	var inputs=$('input');
+    	
+    	for(var i=0;i<inputs.length;i++){
+    		if(!inputs[i].value){
+    			alert("请把信息填写完整！");
+    			$(inputs[i]).focus();
+    			return false;
+    		}
+    	}
+
+
+
+
+    }      	 
+    </script>
+</head>
+<body>
+      <div class="container">
+      <div class="page-header text-center">
+      	商品上架
+      </div>
+	  <form action="" class="navbar-form navbar-right" enctype="multipart/form-data">
+
+		  <div class="input-group input-group-sm">
+		      <span class="input-group-addon">商品名称：</span>
+		      <input type="text" class="form-control" placeholder="请输入商品名称" name="name">   
+	      </div>
+	      <br>
+	      <div class="input-group input-group-sm">
+		      <span class="input-group-addon">商品介绍：</span>
+		      <textarea style="height: 50px" class="form-control" id="textArea" name="describe" placeholder="暂无任何介绍"></textarea>  
+	      </div>
+	      <br>
+	      <div class="input-group input-group-sm">
+		      <span class="input-group-addon">商品价格：</span>
+		      <span class="input-group-addon">￥</span>
+		      <input type="number" class="form-control" name="price">  
+		       <span class="input-group-addon">元</span> 
+	      </div>
+
+	      <br>
+	      <div class="input-group input-group-sm">
+	       <span class="input-group-addon">商品类型：</span>
+	       <select class="form-control" name="type">
+	                <option>--请选择--</option>
+					<option>1</option>
+					<option>2</option>
+					<option>3</option>
+					<option>4</option>
+					<option>5</option>
+			</select>
+			</div>
+            <br>
+           <div class="input-group input-group-sm">
+		      <span class="input-group-addon">上传图片：</span>
+		      <input type="file" name="" id="file1" style="display: none">
+		      <input type="text" class="form-control" id="txtInput" value="" placeholder="还未选择任何文件">  
+		      <span class="input-group-addon"  id="brower" style="cursor: pointer;">浏览</span>     
+	      </div>
+	      <div class="well">
+	      	<img src="http://simg.sinajs.cn/blog7newtpl/image/30/30_1/images/sinablogb.jpg" class="img-thumbnail">
+	      </div>
+		  <div id="btn_union" class="input-group text-center input-group-sm col-xs-12">
+		     <button class="btn btn-primary btn-lg" id="resetBtn" style="border-radius: 0;margin-right: 100px">重置</button> 
+		  	 <input class="btn btn-primary btn-lg" id="subBtn" type="submit" name="" value="提交" style="border-radius: 0">
+		  </div>    
+	 </form>
+		  </div>
+</body>
+</html>

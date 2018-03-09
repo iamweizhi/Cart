@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>管理信息</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <load href="__PUBLIC__/css/bootstrap.min.css"/>
+    <load href="__PUBLIC__/js/jquery.min.js"/>
+    <load href="__PUBLIC__/js/bootstrap.min.js"/>
+    <load href="__PUBLIC__/css/OrderHandle.css"/>
+    <load href="__PUBLIC__/css/index/index.css"/>
+</head>
+<body>
+<div class="container">
+    <style>
+        .list-gruop{
+            font-size: 16px;
+        }
+        .list-gruop li i{
+            margin: 10px;
+        }
+        .list-gruop li a{
+            color: #000;
+        }
+    </style>
+    <div class="page-header">
+       <h3><i class="glyphicon glyphicon-user" style="font-size: 40px;margin:10px 10px -10px 10px;text-shadow: #64A2FC 5px 3px 3px;color: #3385FF;"></i>设置</h3>
+    </div>
+    <ul class="list-gruop">
+        <li class="list-group-item">
+            <i class="glyphicon glyphicon-plus"></i><a href="{:U('Center/addAddress')}">新增配送地址</a>
+        </li>
+        <li class="list-group-item">
+            <i class="glyphicon glyphicon-pencil"></i><a href="{:U('Center/updateAddress')}">修改已有配送地址</a>
+        </li>
+        <li class="list-group-item">
+            <i class="glyphicon glyphicon-road"></i><a href="{:U('Center/updatePersonal')}">修改客服中心个人信息</a>
+        </li>
+    </ul>
+    <include file="Public/toolbar"/>
+</div>
+</body>
+</html>

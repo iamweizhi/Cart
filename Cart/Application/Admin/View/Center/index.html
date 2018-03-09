@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>客服中心</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <load href="__PUBLIC__/js/jquery.js"/>
+    <load href="__PUBLIC__/css/bootstrap.min.css"/>
+    <load href="__PUBLIC__/js/bootstrap.min.js"/>
+    <load href="__PUBLIC__/css/OrderHandle.css"/>
+    <load href="__PUBLIC__/css/admin/adminInfo.css"/>
+    <style>
+        .page-header{
+            position: relative;
+        }
+        #setPosition{
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="container"><!--<div id="head" class="col-xs-12 text-center text-muted">
+        <h3>订单中心</h3>
+    </div>-->
+    <div class="page-header">
+        <h3>客服中心</h3>
+        <div id="setPosition">
+            <a href="{:U('Center/setMessage')}">设置</a>
+        </div>
+    </div>
+    <div>
+        <img src="http://e.hiphotos.baidu.com/baike/whfpf%3D270%2C150%2C50/sign=70bf7c08aacc7cd9fa7867995f3c1308/3c6d55fbb2fb4316b1321d9f29a4462309f7d322.jpg"
+             class="img-thumbnail" alt="我的二维码" style="height: 60px;width: 60px;"/>
+    </div>
+
+    <div id="con">
+        <div class="content">
+            <div class="line"></div>
+            <label>联系方式：</label>
+            <div class="words">12131415168</div>
+        </div>
+        <div class="content">
+            <div class="line"></div>
+            <label>邮箱：</label>
+            <div class="words">3241561427@qq.com</div>
+        </div>
+        <div class="content3">
+            <div class="line"></div>
+            <label>店铺简介：</label>
+            <div class="words" style="margin-left: 30px">
+                袋鼠零食盒子，专程为您服务，袋鼠零食盒子，专程为您服务袋鼠零食盒子，专程为您服务袋鼠零食盒子，专程为您服务袋鼠零食盒子，专程为您服务袋鼠零食盒子，专程为您服务
+            </div>
+        </div>
+    </div>
+</div>
+<include file="Public/toolbar"/>
+</body>
+</html>

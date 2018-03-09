@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<block name="title"><title>{$title|default="后台管理系统"}</title></block>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/Adminstyle.css">
+  <JS href="__PUBLIC__/js/jquery.js" />
+	<JS href="__PUBLIC__/js/bootstrap.js" />
+	<JS href="__PUBLIC__/js/Admin.js" />
+  <style type="text/css">
+  .form-control{
+    padding-left: 15px;
+  }
+  .corner{
+    border-bottom-right-radius: 20px;border-top-right-radius: 20px;
+  }
+  #tool a{
+    margin:0 10px;
+  }
+  #stu_edit{
+    position: absolute;
+    z-index: 10;
+    width:300px;
+    height: 380px;
+    left: 300px;
+    top:120px;
+    display: none;
+  }
+  .progress{
+    background: blue;
+  }
+</style>
+</head>
+<body>
+ <script type="text/javascript">
+   $(function(){
+      $('a.tooltip2').tooltip({
+        placement:'bottom',
+        title:"删除",
+      });
+      $.each($('a.tooltip2'),function(index,value){
+        $(value).click(function(){
+              if(!confirm("是否确定删除")){
+                 return false;
+              }
+              $.ajax({
+                  type:"POST",
+                  url:'stu_del.html',
+                  data:{
+                    sid:$(value).attr('tag'),
+                  },
+                  success:function(response,status,xhr){
+                   $(value).parent().parent().hide();
+                  },
+                });
+             }); 
+      });
+      $('a.tooltip1').tooltip({
+        placement:'bottom',
+        title:"修改",
+      });
+      $.each($('a.tooltip1'),function(index,value){
+          $(value).click(function(){
+              $.ajax({
+                type:"POST",
+                url:'getinfo.html',
+                data:{
+                  sid:$(value).attr('tag'),
+                },
+                success:function(response,status,xhr){
+                   $("#stu_edit input").eq(0).val(response[0].sid);
+                   $("#stu_edit input").eq(1).val(response[0].name);
+                   $("#stu_edit input").eq(2).val(response[0].password);
+                   $("#stu_edit input").eq(3).val(response[0].fid);
+                   $("#stu_edit input").eq(4).val(response[0].spid);
+                },
+              });
+              $("#stu_edit").show();
+           }); 
+      });
+      $('#stu_edit span.close').click(function(){$('#stu_edit').hide();});
+      $('#mybtn').click(function(form){
+         form.preventDefault();
+          $.ajax({
+                  type:"POST",
+                  url:'stu_edit.html',
+                  data:$('form.edit').serialize(),
+                  success:function(response,status,xhr){
+                     // if(response.reply=="")
+                      alert(response.reply);
+                  },
+                  error:function(){
+                    alert("修改错误");
+                  },
+          });
+          $("#stu_edit").hide();
+      });
+       $('#stu_plus button').click(function(form){
+         form.preventDefault();
+          $.ajax({
+                  type:"POST",
+                  url:'stu_plus.html',
+                  data:$('#stu_plus form').serialize(),
+                  success:function(response,status,xhr){
+                     if(response.reply!="用户的信息添加完成,请刷新页面"){
+                      alert("添加失败");
+                     }else{
+                       alert("添加成功");
+                     }  
+                  },
+                  error:function(){
+                    alert("ajax提交失败");
+                  },
+          });
+      });
+      // var index=1;
+      // setInterval(function(){
+      //   index=index+0.3;
+      //   $("#active").css('width',index+"%").html(index+"已经加载");
+      // },100);
+
+   });
+  </script>
+      <ol class="breadcrumb" style="height: 30px;padding-bottom: 0;margin-bottom: 10px">
+         <li ><a href="admin.html" target="myframe"><span class="glyphicon glyphicon-home"></span> 首页</a></li>
+         <li><a href="stu_info.html" target="myframe">学生管理</a></li>
+         <li class="active">学生信息</li>
+      </ol>
+      <ul class="nav nav-tabs">
+        <li class="active"><a href="#stu_show" data-toggle="tab">显示用户信息</a></li>
+        <li><a href="#stu_plus" data-toggle="tab">增加用户信息</a></li>
+      </ul>
+      <div class="tab-content" style="margin-top: 5px;">
+        <div id="stu_show" class="tab-pane  active fade in">
+              <form class="form-horizontal" action="stu_info.html" method="POST">
+           <div class="form-group">
+                  <div class="col-md-3">
+                     <div class="input-group">
+                       <input type="text" class="form-control" name="search" placeholder="请输入用户名或者学号">
+                       <div class="input-group-btn"> <button class="btn btn-primary corner"><span class="glyphicon glyphicon-search"></span>搜索</button></div>
+                   </div>
+                  </div>
+          </div>
+           </form>
+        <empty name="list">
+        <p class="alert alert-primary">用户不存在!!!!! <span class="close" data-toggle="alert">&times;</span></p>
+        <else />
+         <table class="table table-bordered table-hover table-striped">
+             <thead>
+               <td>学号</td>
+               <td>姓名</td>
+               <td>性别</td>
+               <td>邮箱</td>
+               <td>学籍状态</td>
+               <td>操作</td>
+             </thead>
+             <volist name="list" id="vo">
+               <tr>
+                 <td>{$vo.sid}</td>
+                 <td>{$vo.name}</td>
+                 <td>{$vo.sex}</td>
+                 <td>{$vo.email}</td>
+                 <td>{$vo.status}</td>
+                 <td id="tool">
+                     <a href="javascript:void(0)" class="tooltip1" tag="{$vo.sid}" data-toggle="tooltip"><span class="glyphicon glyphicon-pencil"></span></a>
+                     <a href="javascript:void(0)" class="tooltip2" tag="{$vo.sid}" data-toggle="tooltip"><span class="glyphicon glyphicon-trash"></span></a>
+                 </td>
+               </tr>
+              </volist>
+           </table>
+           {$page}
+        </empty>
+       
+        <!--  <div class="progress">
+           <div class="progress-bar progress-bar-success progress-bar-striped active" id="active" style="min-width: 1%;">
+           2%
+           </div>
+         </div> -->
+           <div class="panel panel-primary" id="stu_edit">
+              <div class="panel-heading">
+                <h4 class="panel-title">编辑学生用户信息<span class="close" data-toggle="panel" data-target="#stu_edit">&times;</span></h4>
+              </div>
+              <div class="panel-body">
+                  <form class="form-horizontal edit"   >
+                     <div class="form-group form-group-sm" style="margin:6px 0;">
+                       <label class="control-label col-sm-3">学号:</label>
+                       <div class="col-sm-8">
+                         <input class="form-control" name="mysid"  ></input>
+                       </div>
+                     </div>
+                     <div class="form-group form-group-sm" style="margin:6px 0;">
+                       <label class="control-label col-sm-3">姓名:</label>
+                       <div class="col-sm-8">
+                         <input class="form-control" name="myname" ></input>
+                       </div>
+                     </div>
+                     <div class="form-group form-group-sm" style="margin:6px 0;">
+                       <label class="control-label col-sm-3">密码:</label>
+                       <div class="col-sm-8">
+                         <input class="form-control" name="mypassword" ></input>
+                       </div>
+                     </div>
+                     <div class="form-group form-group-sm" style="margin:6px 0;">
+                       <label class="control-label col-sm-3">专业:</label>
+                       <div class="col-sm-8">
+                         <input class="form-control" name="myspid"  ></input>
+                       </div>
+                     </div><div class="form-group form-group-sm" style="margin:6px 0;">
+                       <label class="control-label col-sm-3">院校:</label>
+                       <div class="col-sm-8">
+                         <input class="form-control" name="myfid"  ></input>
+                       </div>
+                     </div>
+              </div>
+               <div class="panel-footer">
+                  <button class="btn btn-primary" id="mybtn">提交更改</button>
+              </div>
+              </form>
+         </div>
+      </div>
+      <div id="stu_plus" class="tab-pane fade">
+          <form class="form-horizontal" action="stu_plus.html" method="POST">
+             <div class="form-group">
+               <label class="control-label col-sm-2">学生姓名：</label>
+               <div class="col-sm-6">
+                 <input type="text" name="myname" class="form-control">
+               </div>
+             </div>
+             <div class="form-group">
+               <label class="control-label col-sm-2">专业：</label>
+               <div class="col-sm-6">
+                 <input type="text" name="myspid" class="form-control">
+               </div>
+             </div>
+             <div class="form-group">
+               <label class="control-label col-sm-2">院系：</label>
+               <div class="col-sm-6">
+                 <input type="text" name="myfid" class="form-control">
+               </div>
+             </div>
+             <div class="form-group">
+               <label class="control-label col-sm-2">学籍档案：</label>
+               <div class="btn-group col-sm-6" data-toggle="buttons">
+                 <label class="btn btn-primary active">
+                     <input type="radio" name="mystatus" checked value="1">YES
+                 </label>
+                 <label class="btn btn-primary ">
+                     <input type="radio" name="mystatus" value="0">No
+                 </label>
+               </div>
+             </div>
+             <div class="form-group">
+               <label class="control-label col-sm-2"></label>
+               <div class="btn-group col-sm-6">
+                <button class="btn btn-primary"  style="width:50%;">新增</button>
+               </div>
+             </div>
+          </form>
+      </div>
+   </div>
+      
+       
+      
+</body>
+</html>
+

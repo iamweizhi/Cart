@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+Array
+(
+[0] => Array
+(
+[fruits] => Array
+(
+[0] => Array
+(
+[fruits1] => 苹果1
+[fruits2] => 桔子1
+[fruits3] => 香蕉1
+)
+)
+[vegetables] => 白菜1
+)
+[1] => Array
+(
+[fruits] => Array
+(
+[1] => Array
+(
+[fruits1] => 苹果2
+[fruits2] => 桔子2
+[fruits3] => 香蕉2
+)
+)
+[vegetables] => 白菜2
+)
+)
+
+
+<volist name="food" id="vo">
+    <volist name="vo['fruits']" id="f">
+        <p>水果1：{$f['fruits1']}</p>
+        <p>水果2：{$f['fruits2']}</p>
+        <p>水果3：{$f['fruits3']}</p>
+    </volist>
+    <p>蔬菜：{$vo['vegetables']}</p><br />
+</volist>
+
+在模板里面，首先将 $food 变量进行循环输出。由于 $food 数组的成员 fruits 也是一个数组，因此再对 $vo['fruits'] 变量进行循环输出（注意没有 $ 符号）。
+
+输出结果如下：
+
+食物品种：
+
+水果1：苹果1
+水果2：桔子1
+水果3：香蕉1
+蔬菜：白菜1
+
+水果1：苹果2
+水果2：桔子2
+水果3：香蕉2
+蔬菜：白菜2
+
+
+</body>
+</html>
